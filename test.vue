@@ -93,7 +93,7 @@ td {
 в ней моковые данные 
 я хочу заменить на реальные 
 вот они 
-  /* COLORS */
+     COLORS
   --primary-main: rgb(0, 163, 84);
   --primary-middle: hsl(165, 100%, 24%);
   --primary-light: hsl(151, 47%, 84%);
@@ -130,9 +130,8 @@ td {
   --secondary-light: rgba(35, 54, 45, 0.12);
   --overlay-states-light: rgba(35, 54, 45, 0.08);
 
-также еще одна таблица для дефолтных цветов 
- /* DEFAULT COLORS */
-  /* gray */
+  DEFAULT COLORS 
+   gray 
   --gray-25: #fcfcfc;
   --gray-50: #f8f8f8;
   --gray-100: #f3f3f3;
@@ -160,7 +159,7 @@ td {
   --gray-blue-700: #687076;
   --gray-blue-800: #31393e;
   --gray-blue-900: #11181c;
-  /* gray-brand */
+   gray-brand 
   --gray-brand-25: #fcfdfc;
   --gray-brand-50: #f8faf8;
   --gray-brand-100: #f2f4f2;
@@ -174,7 +173,7 @@ td {
   --gray-brand-700: #6b716a;
   --gray-brand-800: #313c2e;
   --gray-brand-900: #141e12;
-  /* brand */
+   brand 
   --primary-brand-25: #fbfefb;
   --primary-brand-50: #f3fcf3;
   --primary-brand-100: #ebf9eb;
@@ -188,7 +187,7 @@ td {
   --primary-brand-700: #297c3b;
   --primary-brand-800: #283e2b;
   --primary-brand-900: #1b311e;
-  /* error */
+   error 
   --error-25: #fffcfc;
   --error-50: #fff8f7;
   --error-100: #fff0ee;
@@ -202,7 +201,7 @@ td {
   --error-700: #c7371c;
   --error-800: #5e1f13;
   --error-900: #400a02;
-  /* warning */
+   warning 
   --warning-25: #fdfdf9;
   --warning-50: #fffce8;
   --warning-100: #fffbd1;
@@ -216,7 +215,7 @@ td {
   --warning-700: #946800;
   --warning-800: #43361c;
   --warning-900: #35290f;
-  /* success */
+   success 
   --success-25: #fbfefc;
   --success-50: #f2fcf5;
   --success-100: #e9f9ee;
@@ -230,7 +229,7 @@ td {
   --success-700: #18794e;
   --success-800: #223f32;
   --success-900: #153226;
-  /* pink */
+   pink 
   --pink-25: #fffcfe;
   --pink-50: #fff7fc;
   --pink-100: #feeef8;
@@ -244,7 +243,7 @@ td {
   --pink-700: #cd1d8d;
   --pink-800: #562342;
   --pink-900: #3b0a2a;
-  /* purple */
+   purple 
   --purple-25: #fefcfe;
   --purple-50: #fdfaff;
   --purple-100: #f9f1fe;
@@ -258,7 +257,7 @@ td {
   --purple-700: #793aaf;
   --purple-800: #44285f;
   --purple-900: #2b0e44;
-  /* violet */
+   violet 
   --violet-25: #fdfcfe;
   --violet-50: #fbfaff;
   --violet-100: #f5f2ff;
@@ -272,7 +271,7 @@ td {
   --violet-700: #5746af;
   --violet-800: #362d67;
   --violet-900: #20134b;
-  /* indigo */
+   indigo 
   --indigo-25: #fdfdfe;
   --indigo-50: #f8faff;
   --indigo-100: #f0f4ff;
@@ -286,7 +285,7 @@ td {
   --indigo-700: #3451b2;
   --indigo-800: #263561;
   --indigo-900: #101d46;
-  /* blue */
+   blue 
   --blue-25: #fbfdff;
   --blue-50: #f5faff;
   --blue-100: #edf6ff;
@@ -300,7 +299,7 @@ td {
   --blue-700: #006adc;
   --blue-800: #143962;
   --blue-900: #00254d;
-  /* cyan */
+  cyan 
   --cyan-25: #fafdfe;
   --cyan-50: #f2fcfd;
   --cyan-100: #e7f9fb;
@@ -314,7 +313,7 @@ td {
   --cyan-700: #0c7792;
   --cyan-800: #143e49;
   --cyan-900: #04313c;
-  /* orange */
+   orange 
   --secondary-brand-25: #fefcfb;
   --secondary-brand-50: #fef8f4;
   --secondary-brand-100: #fff1e7;
@@ -328,7 +327,7 @@ td {
   --secondary-brand-700: #bd4b00;
   --secondary-brand-800: #542b1e;
   --secondary-brand-900: #451e11;
-  /* mint */
+   mint 
   --mint-25: #f9fefd;
   --mint-50: #effefa;
   --mint-100: #e1fbf4;
@@ -342,7 +341,7 @@ td {
   --mint-700: #147d6f;
   --mint-800: #17403a;
   --mint-900: #09342e;
-  /* amber */
+  amber 
   --amber-25: #fefdfb;
   --amber-50: #fff9ed;
   --amber-100: #fff4d5;
