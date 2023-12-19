@@ -362,3 +362,113 @@ td {
 Верни новую разметку страницы с таблицами
 
 
+
+
+
+
+
+
+
+<template>
+  <h1>Цвета</h1>
+  <h2>Основные цвета</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>CSS-переменная</th>
+        <th>Цвет</th>
+        <th>Ячейка с цветом</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>--primary-main</td>
+        <td>rgb(0, 163, 84)</td>
+        <td style="background-color: rgb(0, 163, 84);"></td>
+      </tr>
+      <tr>
+        <td>--primary-middle</td>
+        <td>hsl(165, 100%, 24%)</td>
+        <td style="background-color: hsl(165, 100%, 24%);"></td>
+      </tr>
+      <tr>
+        <td>--primary-light</td>
+        <td>hsl(151, 47%, 84%)</td>
+        <td style="background-color: hsl(151, 47%, 84%);"></td>
+      </tr>
+      <tr>
+        <td>--secondary-orange</td>
+        <td>hsl(24, 90%, 54%)</td>
+        <td style="background-color: hsl(24, 90%, 54%);"></td>
+      </tr>
+      <tr>
+        <td>--secondary-darkred</td>
+        <td>hsl(0, 100%, 32%)</td>
+        <td style="background-color: hsl(0, 100%, 32%);"></td>
+      </tr>
+      <tr>
+        <td>--secondary-red</td>
+        <td>hsl(14, 100%, 57%)</td>
+        <td style="background-color: hsl(14, 100%, 57%);"></td>
+      </tr>
+      <tr>
+        <td>--secondary-yellow</td>
+        <td>hsl(45, 100%, 51%)</td>
+        <td style="background-color: hsl(45, 100%, 51%);"></td>
+      </tr>
+      <tr>
+        <td>--secondary-grey</td>
+        <td>hsl(220, 13%, 95%)</td>
+        <td style="background-color: hsl(220, 13%, 95%);"></td>
+      </tr>
+      <tr>
+        <td>--tertiary</td>
+        <td>hsl(152, 21%, 17%)</td>
+        <td style="background-color: hsl(152, 21%, 17%);"></td>
+      </tr>
+      <!-- Добавьте остальные строки согласно вашим переменным -->
+    </tbody>
+  </table>
+
+  <h2>Дефолтные цвета</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>CSS-переменная</th>
+        <th>HEX</th>
+        <th>Ячейка с цветом</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>--gray-25</td>
+        <td>#fcfcfc</td>
+        <td style="background-color: #fcfcfc;"></td>
+      </tr>
+      <!-- Добавьте остальные строки согласно вашим переменным -->
+    </tbody>
+  </table>
+</template>
+
+<script setup lang="ts">
+  // Ваш JavaScript код, если он требуется
+</script>
+
+<style scoped>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  td:nth-child(3) {
+    width: 50px;
+  }
+</style>
+
+
