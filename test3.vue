@@ -1,12 +1,21 @@
-.alser-ui-library-input::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  appearance: none;
-}
+<style scoped>
+  .input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
 
-/* Для других браузеров, если они добавляют похожие элементы */
-.alser-ui-library-input::-ms-clear,
-.alser-ui-library-input::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
+  .alser-ui-library-input {
+    flex-grow: 1;
+    padding-right: 40px; /* Увеличенный правый отступ для иконки */
+    /* ... остальные стили ... */
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 10px; /* Отступ иконки от правого края input */
+    /* Дополнительные стили для иконки */
+  }
+
+  /* Стили для удаления нативного крестика и т.д. */
+</style>
