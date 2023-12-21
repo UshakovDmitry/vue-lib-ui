@@ -1,62 +1,60 @@
-
 <script setup lang="ts">
-  import { ref } from 'vue'
-  defineProps({
-    type: {
-      type: String,
-      required: false,
-      default: 'text',
-    },
-    placeholder: {
-      type: String,
-      required: false,
-    },
-    required: {
-      type: Boolean,
-      required: false,
-    },
-    minLength: {
-      type: Number,
-      required: false,
-    },
-    maxLength: {
-      type: Number,
-      required: false,
-    },
-    disabled: {
-      type: Boolean,
-      required: false,
-    },
-    readonly: {
-      type: Boolean,
-      required: false,
-    },
-    label: {
-      type: String,
-      required: false,
-      default: '',
-    },
-  })
-  const emits = defineEmits(['onChange'])
+import { ref } from 'vue'
 
-  const value = ref('')
-
-  const onChange = () => {
-    emits('onChange', { value })
+defineProps({
+  type: {
+    type: String,
+    required: false,
+    default: 'text',
+  },
+  // ... остальные пропсы ...
+  icon: {
+    type: String,
+    required: false,
   }
+})
+const emits = defineEmits(['onChange'])
+const value = ref('')
+
+const onChange = () => {
+  emits('onChange', { value })
+}
 </script>
+
 <template>
-  <input
-    class="alser-ui-library-input"
-    v-model="value"
-    :type="type"
-    :placeholder="placeholder"
-    autofocus
-    :required="required"
-    :minLength="minLength"
-    :maxlength="maxLength"
-    :disabled="disabled"
-    :readonly="readonly"
-    @input="onChange"
-  />
+  <div class="input-container">
+    <input
+      class="alser-ui-library-input"
+      v-model="value"
+      :type="type"
+      :placeholder="placeholder"
+      :required="required"
+      :minLength="minLength"
+      :maxlength="maxLength"
+      :disabled="disabled"
+      :readonly="readonly"
+      @input="onChange"
+    />
+    <span v-if="icon" class="input-icon" :class="icon"></span>
+  </div>
 </template>
+
+<style scoped>
+  .input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .alser-ui-library-input {
+    flex-grow: 1;
+    padding-right: 30px; /* Предполагается наличие места для иконки */
+    /* ... остальные стили ... */
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 10px; /* Отступ иконки от правого края input */
+    /* Вы можете добавить дополнительные стили для иконки здесь */
+  }
+</style>
