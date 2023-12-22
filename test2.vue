@@ -1,50 +1,63 @@
 <script setup lang="ts">
   import { ref } from 'vue'
+  import BaseInput from '@/components/BaseInput.vue'
+  import IconComponent from '@/components/Icon.vue' // Импорт иконки крестика
+
+  // Определение пропсов ...
+
+  const inputValue = ref('') // Хранение значения инпута
+
+  // Метод для очистки инпута
+  const clearInput = () => {
+    inputValue.value = ''
+  }
+</script>
+
+<template>
+  <div class="alser-ui-library-field">
+    <!-- ... ваш код ... -->
+
+    <div class="input-wrapper" :class="{ 'input-wrapper_error': errorText, 'input-wrapper_disabled': disabled }">
+      <BaseInput
+        v-model="inputValue"
+        :type="type"
+        :placeholder="placeholder"
+        :required="required"
+        :minLength="minLength"
+        :maxLength="maxLength"
+        :disabled="disabled"
+        :readonly="readonly"
+        :icon="icon"
+        @onChange="emits('onChange', $event)"
+      ></BaseInput>
+      
+      <!-- Иконка крестика, отображается, если в inputValue есть текст -->
+      <IconComponent v-if="inputValue" class="clear-icon" @click="clearInput" />
+    </div>
+
+    <!-- ... ваш код ... -->
+  </div>
+</template>
+
+
+
+
+<script setup lang="ts">
+  import { ref, defineProps, defineEmits } from 'vue'
+
   defineProps({
-    type: {
-      type: String,
-      required: false,
-      default: 'text',
-    },
-    placeholder: {
-      type: String,
-      required: false,
-    },
-    required: {
-      type: Boolean,
-      required: false,
-    },
-    minLength: {
-      type: Number,
-      required: false,
-    },
-    maxLength: {
-      type: Number,
-      required: false,
-    },
-    disabled: {
-      type: Boolean,
-      required: false,
-    },
-    readonly: {
-      type: Boolean,
-      required: false,
-    },
-    label: {
-      type: String,
-      required: false,
-      default: '',
-    },
+    // ... определение пропсов ...
   })
 
   const emits = defineEmits(['onChange'])
+  const value = ref('') // Используется для v-model
 
-  const value = ref('')
-
-  const onChange = (): void => {
-    emits('onChange', value)
+  // Функция onChange для эмита события с текущим значением
+  const onChange = () => {
+    emits('onChange', value.value)
   }
 </script>
+
 <template>
   <input
     class="base-input"
