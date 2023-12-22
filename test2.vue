@@ -7,7 +7,7 @@ import { nextTick } from 'vue';
 // Описание тестов для компонента BaseInput
 describe('BaseInput', () => {
   let wrapper: VueWrapper<any>;
-  let inputElement: VueWrapper<any>;
+  let BaseInputElement: VueWrapper<any>;
 
   // Перед каждым тестом монтируем компонент и находим элемент input
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('BaseInput', () => {
         classes: '',
       }
     });
-    inputElement = wrapper.find('input');
+    BaseInputElement = wrapper.find('input');
   });
 
   // После каждого теста размонтируем компонент
@@ -39,24 +39,32 @@ describe('BaseInput', () => {
 
   // Проверяем, что событие onChange срабатывает при вводе данных в поле
   test('Событие onChange срабатывает при вводе данных', async () => {
-    await inputElement.setValue('Тест');
+    await BaseInputElement.setValue('Тест');
     expect(wrapper.emitted()).toHaveProperty('onChange');
   });
 
   // Проверяем, что событие onChange не срабатывает, если поле отключено
   test('onChange не срабатывает, когда поле отключено', async () => {
     await wrapper.setProps({ disabled: true });
-    await inputElement.setValue('Тест');
+    await BaseInputElement.setValue('Тест');
     expect(wrapper.emitted()).not.toHaveProperty('onChange');
   });
 
   // Проверяем, что в поле отображается правильный placeholder
   test('Поле имеет корректный placeholder', () => {
-    expect(inputElement.attributes('placeholder')).toBe('Введите текст');
+    expect(BaseInputElement.attributes('placeholder')).toBe('Введите текст');
   });
 
   // Проверяем, что поле устанавливается как обязательное, если установлен соответствующий prop
   test('Поле устанавливается как обязательное при соответствующем prop', () => {
-    expect(inputElement.attributes('required')).toBeDefined();
+    expect(BaseInputElement.attributes('required')).toBeDefined();
   });
 });
+
+Type 'DOMWrapper<HTMLInputElement>' is missing the following properties from type 'VueWrapper<any, any>': componentVM, rootVM, __app, __setProps, and 10 more.ts(2740)
+Translation
+Type 'DOMWrapper<HTMLInputElement>' is missing the following properties from type 'VueWrapper<any, any>': componentVM, rootVM, __app, __setProps, and 10 more.
+Request a translation for #2740
+
+let BaseInputElement: VueWrapper<any, any>
+
