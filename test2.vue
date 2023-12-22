@@ -1,9 +1,56 @@
-DocumentationOverview.vue:35 [Vue warn]: Invalid prop: type check failed for prop "value". Expected String with value "34", got Number with value 34. 
-  at <BaseRadio name="ghbd" value=34 class="error" > 
-  at <InputsDocs> 
-  at <DocumentationOverview> 
-  at <MainContainer> 
-  at <App>
+<script setup lang="ts">
+  import { ref } from 'vue'
+  defineProps({
+    type: {
+      type: String,
+      required: false,
+      default: 'text',
+    },
+    placeholder: {
+      type: String,
+      required: false,
+    },
+    required: {
+      type: Boolean,
+      required: false,
+    },
+    minLength: {
+      type: Number,
+      required: false,
+    },
+    maxLength: {
+      type: Number,
+      required: false,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+    },
+    label: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    icon: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    classes: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  })
 
+  const emits = defineEmits(['onChange'])
 
-в чем проблема?
+  const value = ref('')
+
+  const onChange = () =>  {
+    emits('onChange',  value )
+  }
