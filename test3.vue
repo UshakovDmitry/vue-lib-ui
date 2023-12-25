@@ -1,27 +1,3 @@
-<template>
-  <div class="snippet-sourse">
-    <p class="snippet-source-title">{{ source }}</p>
-    <figure class="hightlight">
-      <pre>
-        <code class="language-html" >
-          <slot ></slot>
-        </code>
-      </pre>
-    </figure>
-  </div>
-</template>
-
-<script setup lang="ts">
-
-  defineProps({
-    source: {
-      type: String,
-      default: 'HTML',
-      required: false,
-    },
-  })
-</script>
-
 <style scoped>
   .snippet-sourse {
     background-color: var(--gray-light);
@@ -31,7 +7,7 @@
   }
 
   .snippet-source-title {
-    background-color: var(--dark);
+    background-color: #1e1e1e; /* Тёмный фон, как в VS Code */
     color: var(--secondary-brand);
     padding: 0.5rem;
     border-top-left-radius: 0.5rem;
@@ -43,10 +19,10 @@
 
   .hightlight {
     font-size: 1em;
-    background-color: var(--dark);
+    background-color: #1e1e1e; /* Тёмный фон для кода */
     border-radius: 6px;
     border-top-left-radius: 0;
-    color: var(--white);
+    color: #d4d4d4; /* Светлый текст */
     width: 100%;
   }
 
@@ -59,8 +35,14 @@
     padding: 1.25em 1.5em;
     white-space: pre;
     word-break: break-word;
-    font-family: monospace;
+    font-family: 'Consolas', 'Monaco', monospace; /* Шрифт, как в VS Code */
   }
+
+  /* Стили для синтаксической подсветки */
+  .language-html .tag { color: #569cd6; } /* Синий цвет для тегов */
+  .language-html .attribute { color: #9cdcfe; } /* Светло-голубой для атрибутов */
+  .language-html .string { color: #ce9178; } /* Оранжевый для строк */
+  /* Добавьте больше стилей для других элементов кода */
 
   @media screen and (max-width: 1279px) {
     .snippet-sourse {
@@ -68,3 +50,4 @@
     }
   }
 </style>
+
