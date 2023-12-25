@@ -1,53 +1,76 @@
-<style scoped>
-  .snippet-sourse {
-    background-color: var(--gray-light);
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-    width: 50%;
-  }
+я не хочу использовать библиотеки 
+вот что я передаю в компонент 
 
-  .snippet-source-title {
-    background-color: #1e1e1e; /* Тёмный фон, как в VS Code */
-    color: var(--secondary-brand);
-    padding: 0.5rem;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-    display: flex;
-    width: 70px;
-    justify-content: center;
-  }
+    <DocsContentSnippetSource :source="'JS'">
+      {{ textFieldProps }}</DocsContentSnippetSource
+    >
 
-  .hightlight {
-    font-size: 1em;
-    background-color: #1e1e1e; /* Тёмный фон для кода */
-    border-radius: 6px;
-    border-top-left-radius: 0;
-    color: #d4d4d4; /* Светлый текст */
-    width: 100%;
-  }
 
-  .highlight pre {
-    background-color: transparent;
-    color: currentColor;
-    font-size: 1em;
-    line-height: 1.375;
-    margin: 0 !important;
-    padding: 1.25em 1.5em;
-    white-space: pre;
-    word-break: break-word;
-    font-family: 'Consolas', 'Monaco', monospace; /* Шрифт, как в VS Code */
-  }
+  const textFieldProps = ` 
+     defineProps({ 
 
-  /* Стили для синтаксической подсветки */
-  .language-html .tag { color: #569cd6; } /* Синий цвет для тегов */
-  .language-html .attribute { color: #9cdcfe; } /* Светло-голубой для атрибутов */
-  .language-html .string { color: #ce9178; } /* Оранжевый для строк */
-  /* Добавьте больше стилей для других элементов кода */
+      type: { 
+        type: String,
+        required: false,
+        default: 'text',
+      },
 
-  @media screen and (max-width: 1279px) {
-    .snippet-sourse {
-      width: 100%;
-    }
-  }
-</style>
+      placeholder: {         
+        type: String, 
+        required: false, 
+      }, 
 
+      required: {
+        type: Boolean, 
+        required: false, 
+        default: false, 
+      }, 
+        
+      minLength: { 
+        type:Number,
+         required: false,
+       },
+       
+      maxLength: { 
+        type: Number,
+        required: false, 
+      },
+
+      disabled: {
+         type: Boolean,
+         required: false, 
+        }, 
+        
+      readonly: { 
+        type: Boolean,
+        required: false,
+      }, 
+      
+      label: {
+         type: String,
+         required: false,
+         default: '',
+      },
+      
+      icon: {
+        type: String,
+        required: false,
+        default: '', 
+      },
+        
+      errorText: { 
+        type: String,
+        required: false,
+        default: '', 
+      }, 
+      
+      hintText: { 
+        type: String,
+        required: false,
+        default: '',
+      },
+           
+      })`
+
+я хочу выделить название пропсов type ,placeholder , required,minLength и тд
+эти слова я хочу выделить оранжевым цветом
