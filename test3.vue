@@ -1,204 +1,463 @@
-import { mount, VueWrapper } from '@vue/test-utils';
-import { describe, expect, test, afterEach, beforeEach, vi } from "vitest";
-import TextField from '@/components/TextField.vue';
+<template>
+  <div class="alser-ui-library-field">
+    <label v-if="label" class="label">
+      <p
+        class="lable__text"
+        :class="{
+          lable__text_required: disabled,
+        }"
+      >
+        {{ label }}
+      </p>
+      <p v-if="required" class="label__mark">*</p>
+    </label>
 
-describe('TextField', () => {
-    let wrapper: VueWrapper<any>;
-    let TEXTFIELD: VueWrapper<any>;
-    
-    beforeEach(() => {
-        wrapper = mount(TextField, {
-        props: {
-            copyText: 'test',
-        }
-        });
-    
-        TEXTFIELD = wrapper.findComponent(TextField);
-    });
-    
-    afterEach(() => {
-        wrapper.unmount();
-    });
-    
-    test('Компонент существует', () => {
-        expect(wrapper.exists()).toBe(true);
-    });
-    
-    
-    test('Компонент имеет событие onClick', () => {
-        TEXTFIELD.trigger('click');
-    
-        expect(wrapper.emitted()).toHaveProperty('click');
-    });
+    <div
+      class="input-wrapper"
+      :class="{
+        'input-wrapper_error': errorText,
+        'input-wrapper_disabled': disabled,
+      }"
+    >
 
-    test('Компонент имеет событие onCopy', () => {
-        TEXTFIELD.trigger('copy');
-    
-        expect(wrapper.emitted()).toHaveProperty('copy');
-    });
+      <slot name="iconPrefix" ></slot>
+      <BaseInput
+        :type="type"
+        :placeholder="placeholder"
+        :required="required"
+        :minLength="minLength"
+        :maxLength="maxLength"
+        :disabled="disabled"
+        :readonly="readonly"
+        :icon="icon"
+        @onChange="emits('onChange', $event)"
+      ></BaseInput>
+        <slot name="iconSufix" ></slot>
+    </div>
+    <span :class="errorText ? 'error-text' : 'hidden-span'">{{
+      errorText
+    }}</span>
+    <span :class="hintText ? 'hint-text' : 'hidden-span'">{{ hintText }}</span>
+  </div>
+</template>
 
-    test('Компонент имеет событие onCut', () => {
-        TEXTFIELD.trigger('cut');
-    
-        expect(wrapper.emitted()).toHaveProperty('cut');
-    });
-
-    test('Компонент имеет событие onPaste', () => {
-        TEXTFIELD.trigger('paste');
-    
-        expect(wrapper.emitted()).toHaveProperty('paste');
-    });
+<script setup lang="ts">
+  import BaseInput from '@/components/BaseInput.vue'
 
 
-    test('Компонент имеет событие onFocus', () => {
-        TEXTFIELD.trigger('focus');
-    
-        expect(wrapper.emitted()).toHaveProperty('focus');
-    });
+  defineSlots<{
+  iconPrefix?: (props) => any
+  iconSufix?: (props) => any
+}>()
 
-    test('Компонент имеет событие onBlur', () => {
-        TEXTFIELD.trigger('blur');
-    
-        expect(wrapper.emitted()).toHaveProperty('blur');
-    });
+  defineProps({
+    placeholder: {
+      type: String,
+      required: false,
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    minLength: {
+      type: Number,
+      required: false,
+    },
+    maxLength: {
+      type: Number,
+      required: false,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+    },
+    label: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    icon: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'text',
+    },
+    errorText: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    hintText: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  })
 
-    test('Компонент имеет событие onInput', () => {
-        TEXTFIELD.trigger('input');
-    
-        expect(wrapper.emitted()).toHaveProperty('input');
-    });
+  const emits = defineEmits(['onChange'])
 
-    test('Компонент имеет событие onKeydown', () => {
-        TEXTFIELD.trigger('keydown');
-    
-        expect(wrapper.emitted()).toHaveProperty('keydown');
-    });
+</script>
 
-    test('Компонент имеет событие onKeypress', () => {
-        TEXTFIELD.trigger('keypress');
-    
-        expect(wrapper.emitted()).toHaveProperty('keypress');
-    });
+<style scoped>
+  .label {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+  }
 
-    test('Компонент имеет событие onKeyup', () => {
-        TEXTFIELD.trigger('keyup');
-    
-        expect(wrapper.emitted()).toHaveProperty('keyup');
-    });
+  .lable__text {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+  }
+  .lable__text_required {
+    color: var(--colors-text-disabled, #c3c8c2);
+  }
+  .label__mark {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--secondary-brand);
+    font-size: 1.2rem;
+  }
 
-    test('Компонент имеет событие onMousedown', () => {
-        TEXTFIELD.trigger('mousedown');
-    
-        expect(wrapper.emitted()).toHaveProperty('mousedown');
-    });
+  .hidden-span {
+    display: none;
+  }
+  .alser-ui-library-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+  }
 
-    test('Компонент имеет событие onMouseenter', () => {
-        TEXTFIELD.trigger('mouseenter');
-    
-        expect(wrapper.emitted()).toHaveProperty('mouseenter');
-    });
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    padding: var(--spacing-md, 8px) var(--spacing-lg, 12px);
+    border-radius: 16px;
+    gap: 0.5rem;
+    border: 1px solid var(--Tertiary-LightMode-Border, rgba(35, 54, 45, 0.12));
+    background: #fff;
+  }
 
-    test('Компонент имеет событие onMouseleave', () => {
-        TEXTFIELD.trigger('mouseleave');
-    
-        expect(wrapper.emitted()).toHaveProperty('mouseleave');
-    });
+  .input-wrapper:not(:has(input:disabled)):hover {
+    border-radius: var(--radius-2xl, 16px);
+    border: 1px solid var(--border-secondary, #d8dcd8);
+    background: var(--colors-palette-basic-white, #fff);
+    box-shadow: 0px 0px 0px 4px rgba(70, 167, 88, 0.24);
+}
 
-    test('Компонент имеет событие onMousemove', () => {
-        TEXTFIELD.trigger('mousemove');
-    
-        expect(wrapper.emitted()).toHaveProperty('mousemove');
-    });
+  /* Стили для состояния focus */
+  .input-wrapper:focus-within {
+    border-radius: var(--radius-2xl, 16px);
+    border: 1px solid var(--border-secondary, #d8dcd8);
+    background: var(--colors-palette-basic-white, #fff);
+    /* focus-rings/ring-brand */
+    box-shadow: 0px 0px 0px 4px rgba(70, 167, 88, 0.24);
+    }
 
-    test('Компонент имеет событие onMouseout', () => {
-        TEXTFIELD.trigger('mouseout');
-    
-        expect(wrapper.emitted()).toHaveProperty('mouseout');
-    });
+  /* Стили для состояния active */
+  .input-wrapper:not(:has(input:disabled)):active {
+    border-radius: var(--radius-2xl, 16px);
+    border: 1px solid var(--border-secondary, #d8dcd8);
+    background: var(--colors-palette-basic-white, #fff);
+    /* focus-rings/ring-brand */
+    box-shadow: 0px 0px 0px 4px rgba(70, 167, 88, 0.24);                            
+  }
 
-    test('Компонент имеет событие onMouseover', () => {
-        TEXTFIELD.trigger('mouseover');
-    
-        expect(wrapper.emitted()).toHaveProperty('mouseover');
-    });
+  /* .alser-ui-library-field.error > .input-wrapper {
+    border: 1px solid var(--error-main);
+  }
+  .alser-ui-library-field.error > .input-wrapper:focus,
+  .alser-ui-library-field.error > .input-wrapper:hover,
+  .alser-ui-library-field.error > .input-wrapper:active {
+    cursor: text;
 
-    test('Компонент имеет событие onMouseup', () => {
-        TEXTFIELD.trigger('mouseup');
-    
-        expect(wrapper.emitted()).toHaveProperty('mouseup');
-    });
+    box-shadow: 0 0 0 0.05em var(--error-middle);
+  } */
+  /* 
+  .alser-ui-library-field.success > .input-wrapper {
+    border: 1px solid var(--success-main);
+  }
+  .alser-ui-library-field.success > .input-wrapper:focus,
+  .alser-ui-library-field.success > .input-wrapper:hover,
+  .alser-ui-library-field.success > .input-wrapper:active {
+    cursor: text;
 
-    test('Компонент имеет событие onWheel', () => {
-        TEXTFIELD.trigger('wheel');
-    
-        expect(wrapper.emitted()).toHaveProperty('wheel');
-    });
+    box-shadow: 0 0 0 0.05em var(--success-middle);
+  } */
+  /* TODO  Дореализовать
+  .alser-ui-library-field.disabled > .input-wrapper {
+    border: 1px solid var(--disabled-element);
+    border-radius: var(--input-border-radius);
+    background-color: var(--disabled-element);
+    outline: none;
+    cursor: not-allowed;
+  }
 
-    test('Компонент имеет событие onCompositionend', () => {
-        TEXTFIELD.trigger('compositionend');
-    
-        expect(wrapper.emitted()).toHaveProperty('compositionend');
-    });
+  .alser-ui-library-field.disabled > .input-wrapper:focus,
+  .alser-ui-library-field.disabled > .input-wrapper:hover,
+  .alser-ui-library-field.disabled > .input-wrapper:active {
+    cursor: text;
 
-    test('Компонент имеет событие onCompositionstart', () => {
-        TEXTFIELD.trigger('compositionstart');
-    
-        expect(wrapper.emitted()).toHaveProperty('compositionstart');
-    });
+    box-shadow: 0 0 0 0.05em var(--disabled-content);
+  } */
 
-    test('Компонент имеет событие onCompositionupdate', () => {
-        TEXTFIELD.trigger('compositionupdate');
-    
-        expect(wrapper.emitted()).toHaveProperty('compositionupdate');
-    });
+  /* .alser-ui-library-field.disabled > .input-wrapper > input {
+    border: none;
+    outline: none;
+  } */
 
-    test('Компонент имеет событие onInput', () => {
-        TEXTFIELD.trigger('input');
-    
-        expect(wrapper.emitted()).toHaveProperty('input');
-    });
+  /* .alser-ui-library-field.white > .input-wrapper {
+    border: 1px solid var(--white);
+  }
 
-    test('Компонент имеет событие onInvalid', () => {
-        TEXTFIELD.trigger('invalid');
-    
-        expect(wrapper.emitted()).toHaveProperty('invalid');
-    });
+  .alser-ui-library-field.white > .input-wrapper:focus,
+  .alser-ui-library-field.white > .input-wrapper:hover,
+  .alser-ui-library-field.white > .input-wrapper:active {
+    cursor: text;
 
-    test('Компонент имеет событие onReset', () => {
-        TEXTFIELD.trigger('reset');
-    
-        expect(wrapper.emitted()).toHaveProperty('reset');
-    });
+    box-shadow: 0 0 0 0.05em var(--white);
+  } */
 
-    test('Компонент имеет событие onSearch', () => {
-        TEXTFIELD.trigger('search');
-    
-        expect(wrapper.emitted()).toHaveProperty('search');
-    });
+  /* .alser-ui-library-field.dark > .input-wrapper {
+    border: 1px solid var(--dark);
+  }
 
-    test('Компонент имеет событие onSelect', () => {
-        TEXTFIELD.trigger('select');
-    
-        expect(wrapper.emitted()).toHaveProperty('select');
-    });
+  .alser-ui-library-field.dark > .input-wrapper:focus,
+  .alser-ui-library-field.dark > .input-wrapper:hover,
+  .alser-ui-library-field.dark > .input-wrapper:active {
+    cursor: text;
 
-    test('Компонент имеет событие onChange', () => {
-        TEXTFIELD.trigger('change');
-    
-        expect(wrapper.emitted()).toHaveProperty('change');
-    });
+    box-shadow: 0 0 0 0.05em var(--dark);
+  } */
 
-    test('Компонент имеет событие onCopy', () => {
-        TEXTFIELD.trigger('copy');
-    
-        expect(wrapper.emitted()).toHaveProperty('copy');
-    });
+  /* .alser-ui-library-field.gray > .input-wrapper {
+    border: 1px solid var(--gray);
+  }
 
-    test('Компонент имеет событие onCut', () => {
-        TEXTFIELD.trigger('cut');
-    
-        expect(wrapper.emitted()).toHaveProperty('cut');
-    });
+  .alser-ui-library-field.gray > .input-wrapper:focus,
+  .alser-ui-library-field.gray > .input-wrapper:hover,
+  .alser-ui-library-field.gray > .input-wrapper:active {
+    cursor: text;
 
+    box-shadow: 0 0 0 0.05em var(--gray);
+  } */
 
-});
+  /* .alser-ui-library-field.gray-blue > .input-wrapper {
+    border: 1px solid var(--gray-blue);
+  }
+
+  .alser-ui-library-field.gray-blue > .input-wrapper:focus,
+  .alser-ui-library-field.gray-blue > .input-wrapper:hover,
+  .alser-ui-library-field.gray-blue > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--gray-blue);
+  } */
+  /* 
+  .alser-ui-library-field.primary-brand > .input-wrapper {
+    border: 1px solid var(--primary-main);
+  }
+
+  .alser-ui-library-field.primary-brand > .input-wrapper:focus,
+  .alser-ui-library-field.primary-brand > .input-wrapper:hover,
+  .alser-ui-library-field.primary-brand > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--primary-light);
+  } */
+
+  /* .alser-ui-library-field.blue > .input-wrapper {
+    border: 1px solid var(--blue);
+  }
+
+  .alser-ui-library-field.blue > .input-wrapper:focus,
+  .alser-ui-library-field.blue > .input-wrapper:hover,
+  .alser-ui-library-field.blue > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--blue);
+  } */
+
+  /* .alser-ui-library-field.gray-brand > .input-wrapper {
+    border: 1px solid var(--gray-brand);
+  }
+
+  .alser-ui-library-field.gray-brand > .input-wrapper:focus,
+  .alser-ui-library-field.gray-brand > .input-wrapper:hover,
+  .alser-ui-library-field.gray-brand > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--gray-brand);
+  } */
+
+  /* .alser-ui-library-field.warning > .input-wrapper {
+    border: 1px solid var(--warning-main);
+  }
+
+  .alser-ui-library-field.warning > .input-wrapper:focus,
+  .alser-ui-library-field.warning > .input-wrapper:hover,
+  .alser-ui-library-field.warning > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--warning-middle);
+  } */
+
+  /* .alser-ui-library-field.success > .input-wrapper {
+    border: 1px solid var(--success-main);
+  }
+
+  .alser-ui-library-field.success > .input-wrapper:focus,
+  .alser-ui-library-field.success > .input-wrapper:hover,
+  .alser-ui-library-field.success > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--success-middle);
+  } */
+  /* 
+  .alser-ui-library-field.pink > .input-wrapper {
+    border: 1px solid var(--pink);
+  }
+
+  .alser-ui-library-field.pink > .input-wrapper:focus,
+  .alser-ui-library-field.pink > .input-wrapper:hover,
+  .alser-ui-library-field.pink > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--pink);
+  }
+
+  .alser-ui-library-field.purple > .input-wrapper {
+    border: 1px solid var(--purple);
+  }
+
+  .alser-ui-library-field.purple > .input-wrapper:focus,
+  .alser-ui-library-field.purple > .input-wrapper:hover,
+  .alser-ui-library-field.purple > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--purple);
+  } */
+
+  /* .alser-ui-library-field.violet > .input-wrapper {
+    border: 1px solid var(--violet);
+  }
+
+  .alser-ui-library-field.violet > .input-wrapper:focus,
+  .alser-ui-library-field.violet > .input-wrapper:hover,
+  .alser-ui-library-field.violet > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--violet);
+  } */
+
+  /* .alser-ui-library-field.indigo > .input-wrapper {
+    border: 1px solid var(--indigo);
+  }
+
+  .alser-ui-library-field.indigo > .input-wrapper:focus,
+  .alser-ui-library-field.indigo > .input-wrapper:hover,
+  .alser-ui-library-field.indigo > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--indigo);
+  } */
+
+  /* .alser-ui-library-field.cyan > .input-wrapper {
+    border: 1px solid var(--cyan);
+  }
+
+  .alser-ui-library-field.cyan > .input-wrapper:focus,
+  .alser-ui-library-field.cyan > .input-wrapper:hover,
+  .alser-ui-library-field.cyan > .input-wrapper:active {
+    cursor: text;
+
+    box-shadow: 0 0 0 0.05em var(--cyan);
+  } */
+
+  .alser-ui-library-field.secondary-brand > .input-wrapper {
+    border: 1px solid var(--secondary-brand);
+  }
+
+  .error-text {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 124%;
+    letter-spacing: 0.4px;
+    color: var(--error);
+  }
+
+  .hint-text {
+    color: var(--colors-text-warning-primary, #ffa01c);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 15.6px */
+    letter-spacing: 0.4px;
+  }
+
+  .label__mark_error {
+    color: var(--error);
+  }
+
+  /* TODO  сделать через скоуп */
+  .input-wrapper_error {
+    border-radius: var(--radius-2xl, 16px) !important;
+    border: 1px solid var(--colors-border-error, #f3b0a2) !important;
+    background: var(--colors-bg-primary, #fff) !important;
+    box-shadow: 0px 1px 2px 0px rgba(16, 40, 33, 0.05) !important;
+  }
+
+  /* Стили для состояния hover */
+  .input-wrapper_error:hover {
+    border-radius: var(--radius-2xl, 16px) !important;
+    border: 1px solid var(--colors-border-secondary, #d8dcd8) !important;
+    background: var(--colors-palette-basic-white, #fff) !important;
+    box-shadow: 0px 0px 0px 4px rgba(229, 77, 46, 0.24) !important;
+  }
+
+  /* Стили для состояния focus */
+  .input-wrapper_error:focus-within {
+    border-radius: var(--radius-2xl, 16px) !important;
+    border: 1px solid var(--colors-border-secondary, #d8dcd8) !important;
+    background: var(--colors-palette-basic-white, #fff) !important;
+    box-shadow: 0px 0px 0px 4px rgba(229, 77, 46, 0.24) !important;
+  }
+
+  /* Стили для состояния active */
+  .input-wrapper_error:active {
+    border-radius: var(--radius-2xl, 16px) !important;
+    border: 1px solid var(--colors-border-secondary, #d8dcd8) !important;
+    background: var(--colors-palette-basic-white, #fff) !important;
+    box-shadow: 0px 0px 0px 4px rgba(229, 77, 46, 0.24) !important;
+  }
+  .input-wrapper_disabled {
+    border: 1px solid var(--disabled-element) !important;
+    background: var(--colors-bg-disabled, #f1f3f5) !important;
+    border: 1px solid var(--colors-border-disabled, #e0e4e0) !important;
+    outline: none;
+    cursor: not-allowed;
+  }
+</style>
+
